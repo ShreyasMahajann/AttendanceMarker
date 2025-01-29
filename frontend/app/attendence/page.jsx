@@ -10,15 +10,17 @@ const Attendenceform = ({className}) => {
   const  handleSubmit = async (e) => {
     e.preventDefault();
     let link = linkRef.current.value;
-    let time = timeRef.current.value;    
-    let req = {link:link, time:time, questions:questions};
+    let time = timeRef.current.value; 
+    let req = {link:link, time:time, cookie:document.cookie, questions:questions};
 
     const response = await fetch('/api/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(req),
     });   
-console.log(JSON.stringify(req));
+    let jsonRes = await response.text();
+    // alert(jsonRes._status);
+    console.log(jsonRes);
   }
 
 
@@ -81,6 +83,7 @@ console.log(JSON.stringify(questions));
           defaultValue={question.question}
 
           onChange={(e)=>{
+            
             setQuestions((_questions)=>{
               let prevQs = _questions.slice(0,_questions.length-1);
               return [...prevQs, {
@@ -107,6 +110,8 @@ console.log(JSON.stringify(questions));
             setQuestions((_questions)=>{
 
               let prevQs = _questions.slice(0,_questions.length-1);
+
+
               return [...prevQs, {
                 index:_questions.length,
                 question:_questions[_questions.length-1].question,
@@ -160,9 +165,6 @@ function Home() {
       if (!document.cookie) {
         // router.push("/login"); // Redirect to the login page or any other page
         redirect(`/login`);
-      }
-      else{
-        // router.push("/attendence");
       }
     }, []);
     //done
