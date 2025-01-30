@@ -5,7 +5,6 @@ import  { useState,useRef,useEffect } from "react";
 import Navbar from "@/comps/navbar";
 import { redirect } from 'next/navigation'
 
-
 const Attendenceform = ({className}) => {
   const  handleSubmit = async (e) => {
     e.preventDefault();
