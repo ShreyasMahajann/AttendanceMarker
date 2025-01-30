@@ -1,9 +1,6 @@
 "use server";
 
-import { json } from "express";
 import mongoose from "mongoose";
-import { cookies } from "next/headers";
-import { stringify } from "querystring";
 
 let userSchema = new mongoose.Schema({
     username:String,
